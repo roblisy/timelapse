@@ -4,3 +4,4 @@ credentials.json
 development.py
 # ignore the venv subdirectory and files
 timelapse/
+*jpg
