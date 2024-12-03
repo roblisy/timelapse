@@ -1,5 +1,5 @@
 # The interval between captures (in seconds).
 interval: 60
 # Google Cloud settings
-bucket_name: '<your_bucket_name_here>'
+bucket_name: 'long-term-photo'
 credential_file: 'credentials.json'
