@@ -27,7 +27,6 @@ ffmpeg -framerate 30 -pattern_type glob -i 2023-04-\*.jpg -c:v libx265 output.mp
 ## To Do
 
 In no particular order:
-- add shell script to download and process JPGs
 - create an array of times for each day that finds "interesting" times
 - take pictures only during the interesting times (ex. - sunrise, sunset)
-- take less frequent pictures at night
+- take less frequent pictures at night (maybe?)

@@ -1,7 +1,6 @@
-# config.yaml
+# I'm not showing you my GCS credentials. Go here to create your own:
+# https://developers.google.com/workspace/guides/create-credentials
 credentials.json
-# I did some development work in a different Python file
-development.py
-# ignore the venv subdirectory and files
+# ignore the virtual environment subdirectory and the image files
 timelapse/
 *jpg

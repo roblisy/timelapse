@@ -30,7 +30,38 @@ def upload_image(filename: str):
     storage_client = storage.Client()
     bucket = storage_client.bucket(config['bucket_name'])
     blob = bucket.blob(filename)
-    blob.upload_from_filename(filename, timeout=config['upload_timeout'])
+    blob.upload_from_filename(filename)
+
+def delete_local(filename: str):
+    """
+    Function to delete a local file if and only if the file exists in our GCP bucket
+    """
+    
+    # Do all the GCS housekeeping
+    storage_client = storage.Client()
+    bucket = storage_client.bucket(config['bucket_name'])
+    blob = bucket.blob(filename)
+
+    # try/except the local file and GCS sync
+    try:
+        blob.reload()  # Check if the blob exists
+        print(f"File '{filename}' already exists in GCS. Deleting local file.")
+        os.remove(filename)
+        return True
+    except Exception as e:
+        if "404 Not Found" in str(e): #check the error message for 404
+            print(f"File '{filename}' not found in GCS. Uploading...")
+            try:
+                blob.upload_from_filename(filename)
+                print(f"File '{filename}' uploaded successfully.")
+                return True
+            except Exception as upload_error:
+                print(f"Error uploading file: {upload_error}")
+                return False
+        else:
+            print(f"An error occurred: {e}")
+            return False
+
 
 if __name__ == "__main__":
     set_photo_quality()
@@ -44,22 +75,13 @@ if __name__ == "__main__":
         print(f"Uploading original file {filename}")
         try:
             upload_image(filename=filename)
-        except:
-            print("There was an error")
+        except Exception as e:
+            print(f"""There was an error: {e}""")
+        
+        # Find all local jpgs, check if they exist in GCS. If they do, upload them and delete local
+        jpg_files = glob.glob("*.jpg")
+        for file in jpg_files:
+            delete_local(file)
 
-        #jpg_files = glob.glob(f"{filename}.jpg")
-        # for file in jpg_files:
-        #    print(f"Uploading {file}")
-        #    upload_image(filename=file)
-        #    os.remove(file)
-        #upload_image(filename=filename)
-
-        # Look for any existing local jpgs and upload them
-        # As is this will OVERWRITE any duplicate files in the bucket with the same name
-        #jpg_files = glob.glob("*.jpg")
-        #for file in jpg_files:
-        #    upload_image(file)
-        #    print(f"removing {file}")
-        #    os.remove(file)
         # Wait for the interval and do it all again
         sleep(config['interval'])
