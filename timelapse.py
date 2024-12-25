@@ -72,8 +72,8 @@ if __name__ == "__main__":
         # Call gphoto and take the picture
         capture_image(filename=filename)
         # Upload, with shitty error handling.
-        print(f"Uploading original file {filename}")
         try:
+            print(f"Uploading original file {filename}")
             upload_image(filename=filename)
         except Exception as e:
             print(f"""There was an error: {e}""")
