@@ -10,6 +10,8 @@
 cd /home/rob/timelapse/
 # Create the logs directory if it does not exist.
 mkdir -p logs
+# Start a TMUX session named "take_photos"
+tmux new -s take_photos
 # Activate the correct environment
 source timelapse/bin/activate
 # Start our Python code
