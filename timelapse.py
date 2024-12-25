@@ -8,7 +8,7 @@ from time import sleep
 from google.cloud import storage
 
 # Load our config options
-with open('config.yml', 'r') as file:
+with open('/home/rob/timelapse/config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
 def set_photo_quality():
@@ -41,12 +41,17 @@ def delete_local(filename: str):
     storage_client = storage.Client()
     bucket = storage_client.bucket(config['bucket_name'])
     blob = bucket.blob(filename)
+    # Some debugging
+    #print(f"Filename is {filename}, blob name is {blob.name()}")
 
     # try/except the local file and GCS sync
     try:
         blob.reload()  # Check if the blob exists
         print(f"File '{filename}' already exists in GCS. Deleting local file.")
-        os.remove(filename)
+        try:
+            os.remove(filename)
+        except OSError:
+            pass
         return True
     except Exception as e:
         if "404 Not Found" in str(e): #check the error message for 404

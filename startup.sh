@@ -6,13 +6,13 @@
 # @reboot sh /home/rob/timelapse/startup.sh >/home/rob/timelapse/logs/cronlog 2>&1
 # This executes the startup.sh script upon reboot
 
-# Get to the correct directory
-cd /home/rob/timelapse/
-# Create the logs directory if it does not exist.
-mkdir -p logs
-# Start a TMUX session named "take_photos"
-tmux new -s take_photos
-# Activate the correct environment
-source timelapse/bin/activate
-# Start our Python code
-python timelapse.py
+# Start a TMUX session named "take_photos", activate our environment, and run our Python program
+tmux new-session -d -s take_photos \
+    # Get to the correct directory
+    cd /home/rob/timelapse/ && \
+    # Create the logs directory if it does not exist.
+    mkdir -p logs && \
+    # Activate our environment
+    . timelapse/bin/activate && \
+    # run our Python script
+    python timelapse.py
