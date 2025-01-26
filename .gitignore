@@ -1,6 +1,2 @@
-# I'm not showing you my GCS credentials. Go here to create your own:
-# https://developers.google.com/workspace/guides/create-credentials
-credentials.json
-# ignore the virtual environment subdirectory and the image files
-timelapse/
-*jpg
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
