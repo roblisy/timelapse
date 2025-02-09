@@ -1,6 +1,7 @@
-# I'm not showing you my GCS credentials. Go here to create your own:
-# https://developers.google.com/workspace/guides/create-credentials
-credentials.json
-# ignore the virtual environment subdirectory and the image files
-timelapse/
-*jpg
+# ignore images and rendered videos
+*.jpg
+*.mp4
+# ignore credentials file
+*.json
+# ignore loggging files
+*.log
