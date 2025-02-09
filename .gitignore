@@ -1,2 +1,7 @@
-# Created by venv; see https://docs.python.org/3/library/venv.html
-*
+# ignore images and rendered videos
+*.jpg
+*.mp4
+# ignore credentials file
+*.json
+# ignore loggging files
+*.log
