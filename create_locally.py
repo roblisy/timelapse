@@ -122,7 +122,7 @@ def main():
     parser.add_argument("--start_date", type=str, required=True, help="Start date in YYYY-MM-DD format.")
     parser.add_argument("--end_date", type=str, required=True, help="End date in YYYY-MM-DD format.")
     parser.add_argument("--bucket_name", type=str, required=True, help="Name of the Google Cloud Storage bucket.")
-    parser.add_argument("--prefix", type=str, required=False, help="Prefix string to append to the video name.")
+    parser.add_argument("--prefix", type=str, required=False, default="sklyine", help="Prefix string to append to the video name.")
     parser.add_argument("--fps", type=int, default=18, required=False, help="Frames per second for the video. Default is 18.")
     parser.add_argument("--delete_images", action="store_false", help="Delete images after generating video. Default is to delete the images.")
     args = parser.parse_args()
