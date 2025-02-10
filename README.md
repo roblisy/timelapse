@@ -23,10 +23,10 @@ The script generates JPG images in the format `YYYY-MM-DD_HH-MM-ss.jpg`. I use f
 gsutil cp -r gs://<bucket_name>/ .
 ```
 
-Then cd into that directory and run the ffmepg command, to create "output.mp4":
+Then cd into that directory and run the ffmepg command, to create a daily output video:
 
 ```
-ffmpeg -framerate 30 -pattern_type glob -i 2023-04-*.jpg -c:v libx265 output.mp4
+ffmpeg -framerate {fps} -pattern_type glob -i '{input_dir}/{date_str}*.jpg' -c:v libx265 -preset ultrafast {output_file}
 ```
 
 
@@ -36,3 +36,4 @@ In no particular order:
 - Create an array of times for each day that finds "interesting" times, such as sunrise, sunset, or other times of day that might be visually interesting.
 - Take pictures only during the interesting times (ex. - sunrise, sunset)
 - Take less frequent pictures at night (maybe?)
+- Consider the price trade off of using Google Cloud Storage vs some other locally hosted solution (like a NAS or other PC)
